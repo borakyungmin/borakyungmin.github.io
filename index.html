@@ -330,44 +330,25 @@ projects:
     <head>
         <meta charset="UTF-8">
         <title>{{ page.title }}</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="assets/style.css">
         <script src="assets/background.js"></script>
     </head>
     <body>
-    <div id="content">
 
         <div id="background">
             <img src="assets/background.jpg">
             <img src="assets/background.jpg">
         </div>
 
-        <div id="profile">
-            <div id="bio">
-                <h1>
-                    {{ page.title }}
-                </h1>
-                <p>
-                    {{ page.bio }}
-                </p>
-            </div>
-
-            <div id="contact">
-                <h1>Contact</h1>
-                <div id="links">
-                    {% for link in page.links %}
-                    <div class="link">
-                        <a href="{{ link.link }}">→ {{ link.text }}</a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
         <div id="projects">
 
             <div id="header">
-                <p>/</p>
-                <br>
+                <p class="slash">/</p>
                 <p class="client">ARTIST / CLIENT</p>
                 <p class="title">PROJECT TITLE</p>
                 <p class="year">YEAR</p>
@@ -387,6 +368,27 @@ projects:
 
         </div>
 
-    </div>
+
+        <div id="bio">
+            <div id="text">
+                <h1>
+                    {{ page.title }}
+                </h1>
+                <p>
+                    {{ page.bio }}
+                </p>
+            </div>
+
+            <div id="contact">
+                <h1>Contact</h1>
+                <div id="links">
+                    {% for link in page.links %}
+                    <div class="link">
+                        <a href="{{ link.link }}">→ {{ link.text }}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </body>
 </html>

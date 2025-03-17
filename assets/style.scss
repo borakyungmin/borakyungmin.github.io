@@ -1,168 +1,243 @@
 ---
 ---
+/**
+ * This is the default sans-serif font family.
+ *
+ * We include Google Fonts in the HTML in index.html, then reference them here.
+ * If you want to change the Google fonts, use their embed code to replace what
+ * we have in the HTML (should be obvious where), then update the fonts here.
+ */
+$font-sans-serif: "Familjen Grotesk", sans-serif;
 
-$bio-font: "Diatype Variable", sans-serif;
+$font-monospace: "Monument Grotesk Mono Variable", "Inconsolata", "Menlo", monospace;
 
-$mobile-width: 1080px;
-
-$font-color-white: #eeeeee;
-
-$background-opacity: 0.8;
-
-
-
-
-
-
-
-
-* {
-  padding: 0;
-  margin: 0;
-  overscroll-behavior: none;
+/**
+ * This is the pseudo-width of the breakpoint between desktop and mobile.
+ *
+ * It is somewhat arbitrary, so if you find that the site collapses to the mobile
+ * view too aggressively, increase this value. Symmetrically, if you find that
+ * the site does not collapse aggressively enough (maybe on a friend's phone you
+ * notice that they are seeing the desktop layout) you can reduce this value.
+ */
+@mixin mobile($breakpoint: 1080px) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
 }
 
-html {
+/**
+ * This is the default font color, used by the projects list, bio, etc.
+ */
+$white: #EEEEEE;
 
-  body {
+/**
+ * We set the background of the HTML generally to black, then set opacity on the
+ * image background to fade it out a bit. It is otherwise difficult to read the
+ * text in places where the background image is bright.
+ */
+$backdrop-opacity: 0.8;
 
-    background-color: black;
+$shadow-height: 2vh;
+$shadow-height-mobile: 1vh;
 
-    #content {
-      position: relative;
-      min-height: 100vh;
+// TODO MAKE THIS NOT GENERAL
+$side-padding: 20px;
+$side-padding-mobile: 10px;
+
+$header-background-color: rgba(0, 0, 0, 0.5);
+$header-padding-top: 20px;
+$header-padding-top-mobile: 10px;
+
+$projects-padding-bottom: 20px;
+$projects-padding-top: 3vw;
+$projects-padding-top-mobile: 1vw;
+
+$project-auto-scale-font-size-desktop: 0.9vw;
+$project-auto-scale-font-size-mobile: 1.2vw;
+$project-line-height: 1.2vw;
+$project-column-width-client:  15%;
+$project-column-width-title:   40%;
+$project-column-width-year:     5%;
+$project-column-width-role:    20%;
+$project-column-width-studio:  20%;
+
+$bio-border-color: rgba(80, 80, 80, 0.75);
+$bio-background-color: rgba(0, 0, 0, 0.9);
+$bio-heading-font-size: 28px;
+$bio-paragraph-font-size: 20px;
+$bio-text-width: 60%;
+$bio-max-text-width: 960px;
+
+/**
+ * Reset.
+ */
+* {
+  margin: 0;  padding: 0; box-sizing: border-box; color: $white;
+}
+
+/**
+ * Dimensional stacking of components.
+ */
+#background { z-index: 1; }
+#projects   { z-index: 2; }
+#header     { z-index: 3; }
+#bio        { z-index: 4; }
+
+body {
+  overscroll-behavior: none;
+  background-color: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  img {
+    display: block;
+    opacity: $backdrop-opacity;
+    width: 100vw;
+    height: auto;
+  }
+}
+
+#projects {
+  position: relative;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: $projects-padding-bottom;
+
+  #header, .project {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #header, .project {
+    padding-left: $side-padding;
+    padding-right: $side-padding;
+    @include mobile {
+      padding-left: $side-padding-mobile;
+      padding-right: $side-padding-mobile;
+    }
+  }
+
+  .project:nth-of-type(2) {
+    margin-top: $header-padding-top;
+    padding-top: $projects-padding-top;
+    @include mobile {
+      margin-top: 0;
+      padding-top: $projects-padding-top-mobile;
+    }
+  }
+
+  p {
+    color: $white;
+    width: 100%;
+
+    font-family: $font-monospace;
+    font-style: normal;
+    line-height: $project-line-height;
+
+    font-size: $project-auto-scale-font-size-desktop;
+    @include mobile {
+      font-size: $project-auto-scale-font-size-mobile;
+    }
+    &.slash  { width: 100% } // This is the "/" at the very top.
+    &.client { width: $project-column-width-client }
+    &.title  { width: $project-column-width-title  }
+    &.year   { width: $project-column-width-year   }
+    &.role   { width: $project-column-width-role   }
+    &.studio { width: $project-column-width-studio }
+  }
+}
+
+/**
+ *
+ */
+#projects { order: 1; @include mobile { order: 2; }}
+#bio      { order: 2; @include mobile { order: 1; }}
+
+#header {
+  background-color: $header-background-color;
+  font-weight: bold;
+  width: 100%;
+
+  top: 0;
+  left: 0;
+  position: fixed;
+  @include mobile {
+    position: relative;
+  }
+
+  padding-top: $header-padding-top;
+  @include mobile {
+    padding-top: $header-padding-top-mobile;
+  }
+}
+
+#header {
+  box-shadow: 0 0 $shadow-height 0 black;
+  @include mobile {
+    box-shadow: 0 0 $shadow-height-mobile 0 black;
+  }
+}
+
+#bio {
+  font-family: $font-sans-serif;
+  box-shadow: 0 0 $shadow-height 0 black;
+
+  color: $white;
+  background-color: $bio-background-color;
+
+  width: 100%;
+  display: flex;
+  position: relative;
+
+  border-top: 1px solid $bio-border-color;
+  border-bottom: none;
+  @include mobile {
+    border-top: none;
+    border-bottom: 1px solid $bio-border-color;
+  }
+
+  h1 {
+    font-size: $bio-heading-font-size;
+    text-transform: uppercase;
+    margin: 0 0 $side-padding;
+    @include mobile {
+      margin: 0 0 $side-padding-mobile;
+    }
+  }
+
+  #text {
+
+    padding: $side-padding;
+    @include mobile {
+      padding: $side-padding / 2;
     }
 
-    #background {
-
-      z-index: -1;
-      position: fixed;
-      top: 0;
-      left: 0;
-
-      img {
-        opacity: $background-opacity;
-        display: block;
-        width: 100%;
-      }
-    }
-
-    #header {
-      background-color: rgba(0, 0, 0, 0.5);
-      padding-top: 20px;
-      z-index: 2;
-      position: fixed;
-      font-weight: bold;
-      box-shadow: 0 0 2vh 0 black;
+    width: $bio-text-width;
+    max-width: $bio-max-text-width;
+    @include mobile {
       width: 100%;
+      max-width: 100%;
     }
 
-    #projects {
-
-      top: 0;
-      left: 0;
-      width: 100%;
-
-      padding-bottom: 240px;
-
-      #header, .project {
-        box-sizing: border-box;
-        padding-left: 1vw;
-        padding-right: 1vw;
-        font-size: 0;
-      }
-
-      .project:nth-of-type(2) {
-        padding-top: calc(3vw + 20px);
-      }
-
-      p {
-        color: $font-color-white;
-        display: inline-block;
-        font-family: "Monument Grotesk Mono Variable", "Inconsolata", "Menlo", monospace;
-        font-style: normal;
-        line-height: 1.2;
-        font-size: 0.9vw;
-
-        &.client { width: 15%; }
-        &.title  { width: 40%; }
-        &.year   { width: 5%; }
-        &.role   { width: 20%; }
-        &.studio { width: 20%; }
-      }
+    p {
+      font-size: $bio-paragraph-font-size;
     }
+  }
 
-    #profile {
-
-      font-family: $bio-font;
-      font-size: 0;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      box-shadow: 0 0 2vh 0 black;
-
-      border-top: 1px solid rgba(80, 80, 80, 0.75);
-
-      @media (max-width: $mobile-width) {
-        position: relative;
-        border-bottom: 1px solid rgba(80, 80, 80, 0.75);
-      }
-
-      color: $font-color-white;
-      background-color: rgba(0, 0, 0, 0.9);
-
-      width: 100%;
-
-      #bio {
-
-        display: inline-block;
-        padding: 20px;
-        box-sizing: border-box;
-        vertical-align: top;
-
-        width: 60%;
-        max-width: 960px;
-        @media (max-width: $mobile-width) {
-          width: 100%;
-          max-width: 100%;
-        }
-
-        h1 {
-          font-size: 24px;
-          text-transform: uppercase;
-          margin-bottom: 20px;
-        }
-
-        p {
-          font-size: 16px;
-        }
-      }
-
-      #contact {
-
-        padding: 20px;
-        display: inline-block;
-        box-sizing: border-box;
-
-        width: 40%;
-        @media (max-width: $mobile-width) {
-          width: 100%;
-        }
-
-        h1 {
-          text-transform: uppercase;
-          margin-bottom: 20px;
-          font-size: 24px;
-        }
-        #links {
-
-          .link {
-            a {
-              font-size: 16px;
-              color: $font-color-white;
-              text-decoration-line: none;
-            }
-          }
+  #contact {
+    padding: $bio-paragraph-font-size;
+    #links {
+      .link {
+        a {
+          font-size: $bio-paragraph-font-size;
+          color: $white;
+          text-decoration-line: none;
         }
       }
     }
