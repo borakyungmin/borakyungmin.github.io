@@ -2,6 +2,8 @@
 
 https://borakyungmin.com/
 
+<img width="2539" alt="image" src="https://github.com/user-attachments/assets/39032927-fb02-4f88-8fc8-386c44579fcc" />
+
 ## Editing
 
 The suggested method to edit the content is to edit the files directly on Github.
