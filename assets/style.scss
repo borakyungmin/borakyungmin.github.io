@@ -1,243 +1,228 @@
 ---
 ---
-/**
- * This is the default sans-serif font family.
- *
- * We include Google Fonts in the HTML in index.html, then reference them here.
- * If you want to change the Google fonts, use their embed code to replace what
- * we have in the HTML (should be obvious where), then update the fonts here.
- */
-$font-sans-serif: "Familjen Grotesk", sans-serif;
-
-$font-monospace: "Monument Grotesk Mono Variable", "Inconsolata", "Menlo", monospace;
 
 /**
- * This is the pseudo-width of the breakpoint between desktop and mobile.
+ * RESPONSIVE DESIGN / MOBILE
  *
- * It is somewhat arbitrary, so if you find that the site collapses to the mobile
- * view too aggressively, increase this value. Symmetrically, if you find that
- * the site does not collapse aggressively enough (maybe on a friend's phone you
- * notice that they are seeing the desktop layout) you can reduce this value.
+ * Increase the breakpoint when the site collapses to the mobile view too quickly. 
+ * 
+ * Decrease the breakpoint if the site does not collapse quickly enough.
+ * (Maybe on a friend's phone you notice that they are seeing the desktop view)
  */
-@mixin mobile($breakpoint: 1080px) {
+@mixin mobile($breakpoint: 960px) {
   @media (max-width: $breakpoint) {
     @content;
   }
 }
 
-/**
- * This is the default font color, used by the projects list, bio, etc.
- */
-$white: #EEEEEE;
-
-/**
- * We set the background of the HTML generally to black, then set opacity on the
- * image background to fade it out a bit. It is otherwise difficult to read the
- * text in places where the background image is bright.
- */
-$backdrop-opacity: 0.8;
-
-$shadow-height: 2vh;
-$shadow-height-mobile: 1vh;
-
-// TODO MAKE THIS NOT GENERAL
-$side-padding: 20px;
-$side-padding-mobile: 10px;
-
-$header-background-color: rgba(0, 0, 0, 0.5);
-$header-padding-top: 20px;
-$header-padding-top-mobile: 10px;
-
-$projects-padding-bottom: 20px;
-$projects-padding-top: 3vw;
-$projects-padding-top-mobile: 1vw;
-
-$project-auto-scale-font-size-desktop: 0.9vw;
-$project-auto-scale-font-size-mobile: 1.2vw;
-$project-line-height: 1.2vw;
-$project-column-width-client:  15%;
-$project-column-width-title:   40%;
-$project-column-width-year:     5%;
-$project-column-width-role:    20%;
-$project-column-width-studio:  20%;
-
-$bio-border-color: rgba(80, 80, 80, 0.75);
-$bio-background-color: rgba(0, 0, 0, 0.9);
-$bio-heading-font-size: 28px;
-$bio-paragraph-font-size: 20px;
-$bio-text-width: 60%;
-$bio-max-text-width: 960px;
-
-/**
- * Reset.
- */
-* {
-  margin: 0;  padding: 0; box-sizing: border-box; color: $white;
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: black;
+  overscroll-behavior: none; // Disables OS X overscroll
 }
 
 /**
- * Dimensional stacking of components.
+ * Stacking on top of each other from the bottom...
  */
 #background { z-index: 1; }
-#projects   { z-index: 2; }
+#cv         { z-index: 2; }
 #header     { z-index: 3; }
 #bio        { z-index: 4; }
 
-body {
-  overscroll-behavior: none;
-  background-color: black;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+/**
+ * Layout order: swap the order of cv and bio on mobile.
+ */
+#cv  { order: 1; @include mobile { order: 2; }}
+#bio { order: 2; @include mobile { order: 1; }}
+
+// ▗▄▄▖  ▗▄▖  ▗▄▄▖▗▖ ▗▖ ▗▄▄▖▗▄▄▖  ▗▄▖ ▗▖ ▗▖▗▖  ▗▖▗▄▄▄  
+// ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌▗▞▘▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌  █ 
+// ▐▛▀▚▖▐▛▀▜▌▐▌   ▐▛▚▖ ▐▌▝▜▌▐▛▀▚▖▐▌ ▐▌▐▌ ▐▌▐▌ ▝▜▌▐▌  █ 
+// ▐▙▄▞▘▐▌ ▐▌▝▚▄▄▖▐▌ ▐▌▝▚▄▞▘▐▌ ▐▌▝▚▄▞▘▝▚▄▞▘▐▌  ▐▌▐▙▄▄▀ 
 
 #background {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
+
   img {
     display: block;
-    opacity: $backdrop-opacity;
     width: 100vw;
     height: auto;
+
+    /**
+     * We set the background of the site to black, then set opacity on the background 
+     * image to fade it out a bit. It is otherwise difficult to read the text in places 
+     * where the background image is very bright.
+     *
+     * Increase this up to 1.0 to make the background image brighter, 
+     * decrease this down to 0 to make the background image darker.
+     */
+    opacity: 0.8;
   }
 }
 
-#projects {
+
+//  ▗▄▄▖▗▖  ▗▖
+// ▐▌   ▐▌  ▐▌
+// ▐▌   ▐▌  ▐▌
+// ▝▚▄▄▖ ▝▚▞▘ 
+                      
+#cv {
   position: relative;
   flex-grow: 1;
-  overflow-y: auto;
-  padding-bottom: $projects-padding-bottom;
+  z-index: 2;
 
-  #header, .project {
+  font-style: normal;
+  font-family: "Inconsolata", "Menlo", monospace;
+  line-height: 1.2;
+  font-weight: lighter;
+  font-size: calc(min(1.25vw, 14px));
+  margin: 0;
+  padding: 0;
+  padding-bottom: 1em;
+
+  // Scroll the cv within its panel on desktop, but not on mobile.
+  overflow-y: auto; 
+  @include mobile { 
+    overflow-y: visible; 
+  }
+
+  // Layout order: swap the order of cv and bio on mobile.
+  order: 1; @include mobile { order: 2; }
+
+  .project {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  #header, .project {
-    padding-left: $side-padding;
-    padding-right: $side-padding;
-    @include mobile {
-      padding-left: $side-padding-mobile;
-      padding-right: $side-padding-mobile;
-    }
-  }
-
-  .project:nth-of-type(2) {
-    margin-top: $header-padding-top;
-    padding-top: $projects-padding-top;
-    @include mobile {
-      margin-top: 0;
-      padding-top: $projects-padding-top-mobile;
-    }
+    padding-left: 1em;
   }
 
   p {
-    color: $white;
-    width: 100%;
+    color: #eeeeee;
+    margin: 0;
 
-    font-family: $font-monospace;
-    font-style: normal;
-    line-height: $project-line-height;
-
-    font-size: $project-auto-scale-font-size-desktop;
-    @include mobile {
-      font-size: $project-auto-scale-font-size-mobile;
-    }
-    &.slash  { width: 100% } // This is the "/" at the very top.
-    &.client { width: $project-column-width-client }
-    &.title  { width: $project-column-width-title  }
-    &.year   { width: $project-column-width-year   }
-    &.role   { width: $project-column-width-role   }
-    &.studio { width: $project-column-width-studio }
+    &.slash  { width: 100% }
+    &.client { width: 20% }
+    &.title  { width: 35% }
+    &.year   { width: 5% }
+    &.role   { width: 20% }
+    &.studio { width: 20% }
   }
-}
+} 
+  
 
-/**
- *
- */
-#projects { order: 1; @include mobile { order: 2; }}
-#bio      { order: 2; @include mobile { order: 1; }}
-
+// ▗▖ ▗▖▗▄▄▄▖ ▗▄▖ ▗▄▄▄  ▗▄▄▄▖▗▄▄▖ 
+// ▐▌ ▐▌▐▌   ▐▌ ▐▌▐▌  █ ▐▌   ▐▌ ▐▌
+// ▐▛▀▜▌▐▛▀▀▘▐▛▀▜▌▐▌  █ ▐▛▀▀▘▐▛▀▚▖
+// ▐▌ ▐▌▐▙▄▄▖▐▌ ▐▌▐▙▄▄▀ ▐▙▄▄▖▐▌ ▐▌
+                               
 #header {
-  background-color: $header-background-color;
-  font-weight: bold;
-  width: 100%;
-
-  top: 0;
-  left: 0;
   position: fixed;
   @include mobile {
     position: relative;
   }
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  z-index: 3;
 
-  padding-top: $header-padding-top;
-  @include mobile {
-    padding-top: $header-padding-top-mobile;
+  padding-top: 1em;
+  padding-left: 1em;
+  box-shadow: 0 0 1em 0 black;
+  background-color: rgba(0, 0, 0, 0.5 /* opacity */);
+  font-weight: bold;
+  width: 100%;
+
+  // The first project that follows the header...
+  + .project {
+    padding-top: 4em; // Includes the header!
+    @include mobile { 
+      padding-top: 0.5em;
+    }
   }
 }
 
-#header {
-  box-shadow: 0 0 $shadow-height 0 black;
-  @include mobile {
-    box-shadow: 0 0 $shadow-height-mobile 0 black;
-  }
-}
 
+// ▗▄▄▖ ▗▄▄▄▖ ▗▄▖ 
+// ▐▌ ▐▌  █  ▐▌ ▐▌
+// ▐▛▀▚▖  █  ▐▌ ▐▌
+// ▐▙▄▞▘▗▄█▄▖▝▚▄▞▘
+               
 #bio {
-  font-family: $font-sans-serif;
-  box-shadow: 0 0 $shadow-height 0 black;
-
-  color: $white;
-  background-color: $bio-background-color;
-
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   position: relative;
+  z-index: 4;
 
-  border-top: 1px solid $bio-border-color;
+  // Layout order: swap the order of cv and bio on mobile.
+  order: 2; @include mobile { order: 1; }
+
+  font-family: "Familjen Grotesk", sans-serif;
+
+  box-shadow: 0 0 2vh 0 black;
+  @include mobile {
+    box-shadow: 0 0 1vh 0 black;
+  }
+
+  color: #eeeeee;
+  background-color: rgba(0, 0, 0, 0.9);
+
+  border-top: 1px solid rgba(80, 80, 80, 0.4);
   border-bottom: none;
   @include mobile {
     border-top: none;
-    border-bottom: 1px solid $bio-border-color;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.4);
   }
 
   h1 {
-    font-size: $bio-heading-font-size;
+    color: #eeeeee;
+    font-size: 20px;
     text-transform: uppercase;
-    margin: 0 0 $side-padding;
-    @include mobile {
-      margin: 0 0 $side-padding-mobile;
-    }
+    padding: 0 0 20px;
+    margin: 0;
   }
 
   #text {
+    padding: 1em;
+    width: 70%;
+    max-width: 960px;
+    margin: 0;
+    box-sizing: border-box;
 
-    padding: $side-padding;
-    @include mobile {
-      padding: $side-padding / 2;
-    }
-
-    width: $bio-text-width;
-    max-width: $bio-max-text-width;
     @include mobile {
       width: 100%;
       max-width: 100%;
     }
 
     p {
-      font-size: $bio-paragraph-font-size;
+      color: #eeeeee;
+      font-size: 14px;
+      margin: 0;
     }
   }
 
   #contact {
-    padding: $bio-paragraph-font-size;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+
     #links {
       .link {
         a {
-          font-size: $bio-paragraph-font-size;
-          color: $white;
+          color: #eeeeee;
+          font-size: 14px;
           text-decoration-line: none;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
         }
       }
     }

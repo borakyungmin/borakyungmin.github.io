@@ -1,10 +1,23 @@
 /**
- * Executes when the page is fully loaded, including images and fonts.
- * This ensures that all necessary elements are available for interaction.
+ * This is the background image container.
  */
-window.addEventListener("load", () => {
-    infiniteScrollBackground();
-});
+const background = document.getElementById("background");
+
+/**
+ * Duplicate the image to create a vertical stack for the infinite scroll behavior.
+ */
+background.appendChild(background.querySelector('img').cloneNode());
+
+/**
+ * Calculates the height of one full image.
+ * Since the container consists of two stacked images,
+ * its height is twice that of a single image.
+ *
+ * This calculation ensures that scrolling transitions occur at the correct boundaries.
+ */
+function getBackgroundImageHeight() {
+    return background.scrollHeight / 2;
+}
 
 /**
  * Initializes infinite scrolling for the background image.
@@ -15,37 +28,11 @@ window.addEventListener("load", () => {
  * - Scrolling beyond the top shifts the container up to show the bottom of the top image.
  * - Scrolling beyond the bottom shifts the container back down, creating a looping effect.
  */
-function infiniteScrollBackground() {
+window.addEventListener("load", () => {
     /**
      * Ensures the page always starts at the top, preventing unintended scroll positions.
      */
     window.scrollTo(0, 0);
-
-    /**
-     * Selects the background image container using its `id` in the HTML.
-     */
-    const background = document.querySelector("#background");
-
-    /**
-     * Calculates the height of one full image.
-     * Since the container consists of two stacked images,
-     * its height is twice that of a single image.
-     *
-     * This calculation ensures that scrolling transitions occur at the correct boundaries.
-     */
-    function getBackgroundImageHeight() {
-        return background.scrollHeight / 2;
-    }
-
-    let backgroundImageHeight = getBackgroundImageHeight();
-
-    /**
-     * Updates the background image height when the window is resized
-     * to maintain proper scrolling behavior.
-     */
-    window.addEventListener("resize", () => {
-        backgroundImageHeight = getBackgroundImageHeight();
-    });
 
     /**
      * Tracks the current vertical scroll position within the infinite loop.
@@ -59,13 +46,9 @@ function infiniteScrollBackground() {
      * - If the scroll position moves above the top boundary, it wraps around.
      * - If the scroll position moves below the bottom boundary, it wraps back up.
      */
-    function updateScrollPosition(dy) {
+    function updateScrollPosition(dy, h) {
         scrollPosition += dy;
-        if (scrollPosition < 0) {
-            scrollPosition += backgroundImageHeight;
-        } else if (scrollPosition > backgroundImageHeight) {
-            scrollPosition -= backgroundImageHeight;
-        }
+        scrollPosition += scrollPosition < 0 ? h : (scrollPosition > h ? -h : 0);
     }
 
     /**
@@ -90,7 +73,7 @@ function infiniteScrollBackground() {
      * Handles the scroll event, updating and applying the background position.
      */
     function onScroll(dy) {
-        updateScrollPosition(dy);
+        updateScrollPosition(dy, getBackgroundImageHeight());
         translateBackground();
     }
 
@@ -121,4 +104,4 @@ function infiniteScrollBackground() {
         touchStart = touchEnd;
         onScroll(dy);
     });
-}
+});

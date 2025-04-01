@@ -18,9 +18,8 @@ The **background image** is at [assets/background.jpg](assets/background.jpg), w
 are free to replace through the Github user interface.
 
 The **design** is described in the main stylesheet at [assets/style.scss](assets/style.scss).
-There are variables defined at the top that cover most of the adjustments you'd probably want
-to make, and you are free of course to adjust things otherwise as needed. AI is pretty good
-at suggesting changes to the stylesheet if you can describe the result you are looking for.
+AI is pretty good at suggesting changes to the stylesheet if copy/paste the whole thing and 
+describe what you are trying to change.
 
 ## Development
 

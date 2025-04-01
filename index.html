@@ -4,7 +4,7 @@ title: Bora Kyung Min Lee
 bio: |
     Hi! I’m a Seoul-born, LA-based creative producer.
     I specialize in collaborating with multidisciplinary teams of creative directors, graphic / motion designers, 3D animators, procedural artists, real-time technologists, scenographers, and D3 programmers.
-    I work to actualize cohesive and innovative forms of storytelling and audience experience, engaging with projects from conception to completion: ideation, story development, R&D, project management, on-site execution, and cost actualization.
+    I work to actualize cohesive and innovative forms of storytelling and audience experience, engaging with cv from conception to completion: ideation, story development, R&D, project management, on-site execution, and cost actualization.
     I collaborate with industry-leading creative and design studios to bring visionary ideas to life.
 
 
@@ -19,7 +19,7 @@ links:
       link: https://www.linkedin.com/in/borakyungminlee/
 
 
-projects:
+cv:
     - client: DRAKE
       title: ANITA MAX WIN AU TOUR
       year: 2025
@@ -329,6 +329,8 @@ projects:
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
         <title>{{ page.title }}</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -336,16 +338,14 @@ projects:
         <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="assets/style.css">
-        <script src="assets/background.js"></script>
     </head>
     <body>
 
         <div id="background">
             <img src="assets/background.jpg">
-            <img src="assets/background.jpg">
         </div>
 
-        <div id="projects">
+        <div id="cv">
 
             <div id="header">
                 <p class="slash">/</p>
@@ -356,7 +356,7 @@ projects:
                 <p class="studio">STUDIO</p>
             </div>
 
-            {% for project in page.projects %}
+            {% for project in page.cv %}
             <div class="project">
                 <p class="client">{{ project.client }}</p>
                 <p class="title">{{ project.title }}</p>
@@ -380,7 +380,9 @@ projects:
             </div>
 
             <div id="contact">
-                <h1>Contact</h1>
+                <h1>
+                    Contact
+                </h1>
                 <div id="links">
                     {% for link in page.links %}
                     <div class="link">
@@ -390,5 +392,7 @@ projects:
                 </div>
             </div>
         </div>
+        
+        <script src="assets/background.js"></script>
     </body>
 </html>
