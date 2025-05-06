@@ -20,6 +20,12 @@ links:
 
 
 cv:
+    - client: TEST
+      title: test title
+      year: 2066
+      role: CONTENT PRODUCER
+      studio: INDEPENDENT
+
     - client: DRAKE
       title: ANITA MAX WIN AU TOUR
       year: 2025
@@ -333,10 +339,12 @@ cv:
 
         <title>{{ page.title }}</title>
 
+        <!-- This is the code that Google Fonts gives us to embed -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
+        <!-- This is the style sheet that defines the colors, fonts, spacing etc. -->
         <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
@@ -392,7 +400,8 @@ cv:
                 </div>
             </div>
         </div>
-        
+
+        <!-- This is the javascript code that makes the infinite scroll backround happen -->
         <script src="assets/background.js"></script>
     </body>
 </html>
