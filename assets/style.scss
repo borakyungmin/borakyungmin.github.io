@@ -79,7 +79,7 @@ body {
   z-index: 2;
 
   font-style: normal;
-  font-family: "Inconsolata", "Menlo", monospace;
+  font-family: "DM Mono", monospace;
   line-height: 1.2;
   font-weight: lighter;
   font-size: calc(min(1.25vw, 14px));
@@ -106,6 +106,9 @@ body {
     color: #eeeeee;
     margin: 0;
 
+    /**
+     * COLUMN WIDTHS (should add up to 100%)
+     */
     &.slash  { width: 100% }
     &.client { width: 20% }
     &.title  { width: 35% }
@@ -193,7 +196,7 @@ body {
   #text {
     padding: 1em;
     width: 70%;
-    max-width: 960px;
+    max-width: 960px; // Prevents the text paragraph from getting verrry wide
     margin: 0;
     box-sizing: border-box;
 
