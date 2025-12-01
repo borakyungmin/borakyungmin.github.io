@@ -168,7 +168,7 @@ body {
   // Layout order: swap the order of cv and bio on mobile.
   order: 2; @include mobile { order: 1; }
 
-  font-family: "Familjen Grotesk", sans-serif;
+  font-family: "DM Mono", monospace;
 
   box-shadow: 0 0 2vh 0 black;
   @include mobile {
