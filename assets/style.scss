@@ -83,6 +83,7 @@ body {
   line-height: 1.25;
   font-weight: lighter;
   font-size: calc(min(1vw, 11px));
+  @include mobile { font-size: 6px; }
   margin: 0;
   padding: 0;
   padding-bottom: 1em;
@@ -100,6 +101,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding-left: 1em;
+    @include mobile { margin-bottom: 0.2em; }
   }
 
   p {
@@ -115,6 +117,18 @@ body {
     &.year   { width: 5% }
     &.role   { width: 20% }
     &.studio { width: 20% }
+
+    // On phones: narrow role column so roles wrap onto two lines,
+    // giving the room to client and project so those stay on one line.
+    @include mobile {
+      box-sizing: border-box;
+      padding-right: 0.5em;
+      &.client { width: 20% }
+      &.title  { width: 40% }
+      &.year   { width: 6% }
+      &.role   { width: 12% }
+      &.studio { width: 22% }
+    }
   }
 } 
   
