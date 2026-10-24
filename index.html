@@ -286,6 +286,7 @@ cv:
 
     - client: TAYLOR SWIFT
       title: TORTURED POETS DEPARTMENT, THE ERAS TOUR
+      title_short: THE ERAS TOUR
       year: 2024
       role: CONTENT PRODUCER
       studio: HUMAN PERSON
@@ -295,12 +296,14 @@ cv:
       year: 2023
       role: CONTENT PRODUCER
       studio: SILENT PARTNERS
+      studio_short: SPS
 
     - client: SPHERE
       title: FORMULA 1
       year: 2023
       role: CONTENT PRODUCER
       studio: SILENT PARTNERS
+      studio_short: SPS
 
     - client: WIZKID
       title: MORE LOVE, LESS EGO TOUR
@@ -333,12 +336,14 @@ cv:
       studio: FRAMEWORX
 
     - client: AMAZON PRIME GAMING
+      client_short: AMAZON GAMING
       title: CHALLENGERS S5
       year: 2023
       role: GFX PRODUCER
       studio: DAYDREAM
 
     - client: AMAZON PRIME GAMING
+      client_short: AMAZON GAMING
       title: VALORANT // RELOAD
       year: 2022
       role: CREATIVE PRODUCER
@@ -503,13 +508,16 @@ cv:
       title: THE LADY AND THE DALE
       year: 2020
       role: ANIMATION COORDINATOR
+      role_short: ANIMATION COORD
       studio: AWESOME AND MODEST
+      studio_short: AWESOME&MODEST
 
     - client: HBO MAX
       title: INSECURE S5
       year: 2020
       role: ART DEPT PA
       studio: AWESOME AND MODEST
+      studio_short: AWESOME&MODEST
 
     - client: A24
       title: MARCEL THE SHELL WITH SHOES ON
@@ -552,11 +560,11 @@ cv:
 
             {% for project in page.cv %}
             <div class="project">
-                <p class="client">{{ project.client }}</p>
-                <p class="title">{{ project.title }}</p>
+                <p class="client{% if project.client_short %} has-short{% endif %}"><span class="full">{{ project.client }}</span>{% if project.client_short %}<span class="short">{{ project.client_short }}</span>{% endif %}</p>
+                <p class="title{% if project.title_short %} has-short{% endif %}"><span class="full">{{ project.title }}</span>{% if project.title_short %}<span class="short">{{ project.title_short }}</span>{% endif %}</p>
                 <p class="year">{{ project.year }}</p>
-                <p class="role">{{ project.role }}</p>
-                <p class="studio">{{ project.studio }}</p>
+                <p class="role{% if project.role_short %} has-short{% endif %}"><span class="full">{{ project.role }}</span>{% if project.role_short %}<span class="short">{{ project.role_short }}</span>{% endif %}</p>
+                <p class="studio{% if project.studio_short %} has-short{% endif %}"><span class="full">{{ project.studio }}</span>{% if project.studio_short %}<span class="short">{{ project.studio_short }}</span>{% endif %}</p>
             </div>
             {% endfor %}
 
