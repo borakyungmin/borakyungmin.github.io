@@ -190,6 +190,8 @@ body {
     font-size: 12px;
     text-transform: uppercase;
     padding: 0 0 20px;
+    // On phones, tighten the gap under the name and under CONTACT.
+    @include mobile { padding-bottom: 10px; }
     margin: 0;
   }
 
@@ -209,11 +211,14 @@ body {
       color: #eeeeee;
       font-size: 12px;
       margin: 0;
+      @include mobile { font-size: 10px; line-height: 1.45; }
     }
   }
 
   #contact {
     padding: 20px;
+    // On phones, pull Contact up by about one line of bio text.
+    @include mobile { padding-top: 6px; }
     margin: 0;
     box-sizing: border-box;
 
@@ -222,6 +227,7 @@ body {
         a {
           color: #eeeeee;
           font-size: 12px;
+          @include mobile { font-size: 10px; }
           text-decoration-line: none;
           margin: 0;
           padding: 0;
