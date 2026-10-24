@@ -118,8 +118,9 @@ body {
     &.role   { width: 20% }
     &.studio { width: 20% }
 
-    // A project title or role can have a shorter version (title_short /
-    // role_short) that is shown only on phones.
+    // A client, project title, role or studio can have a shorter version
+    // (client_short / title_short / role_short / studio_short) shown only
+    // on phones.
     .short { display: none; }
     @include mobile {
       &.has-short .full  { display: none; }
@@ -134,11 +135,11 @@ body {
       padding-right: 0.5em;
       &.client { width: 18.8% }
       &.title  { width: 36.6% }
-      &.year   { width: 6.5% }
-      &.role   { width: 19.6% }
+      &.year   { width: 7.5% }
+      &.role   { width: 22.4% }
       // Left-aligned; the right padding matches the 1em left margin so the
       // longest studio name ends the same distance from the edge.
-      &.studio { width: 18.5%; padding-right: 1em; }
+      &.studio { width: 14.7%; padding-right: 1em; }
     }
   }
 } 
