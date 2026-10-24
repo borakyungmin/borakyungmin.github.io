@@ -101,7 +101,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding-left: 1em;
-    @include mobile { margin-bottom: 0.2em; }
+    @include mobile { margin-bottom: 0.35em; }
   }
 
   p {
@@ -118,16 +118,27 @@ body {
     &.role   { width: 20% }
     &.studio { width: 20% }
 
-    // On phones: narrow role column so roles wrap onto two lines,
-    // giving the room to client and project so those stay on one line.
+    // A project title or role can have a shorter version (title_short /
+    // role_short) that is shown only on phones.
+    .short { display: none; }
+    @include mobile {
+      &.has-short .full  { display: none; }
+      &.has-short .short { display: inline; }
+    }
+
+    // On phones: columns sized to their longest entry so everything fits
+    // on one line, with an even ~10px gap between Project, Year, Role and
+    // Studio. (Long entries use role_short / title_short on phones.)
     @include mobile {
       box-sizing: border-box;
       padding-right: 0.5em;
-      &.client { width: 20% }
-      &.title  { width: 40% }
-      &.year   { width: 6% }
-      &.role   { width: 12% }
-      &.studio { width: 22% }
+      &.client { width: 18.8% }
+      &.title  { width: 36.6% }
+      &.year   { width: 6.5% }
+      &.role   { width: 19.6% }
+      // Left-aligned; the right padding matches the 1em left margin so the
+      // longest studio name ends the same distance from the edge.
+      &.studio { width: 18.5%; padding-right: 1em; }
     }
   }
 } 
@@ -202,6 +213,7 @@ body {
   h1 {
     color: #eeeeee;
     font-size: 12px;
+    @include mobile { font-size: 11px; }
     text-transform: uppercase;
     padding: 0 0 20px;
     // On phones, tighten the gap under the name and under CONTACT.
@@ -225,7 +237,7 @@ body {
       color: #eeeeee;
       font-size: 12px;
       margin: 0;
-      @include mobile { font-size: 10px; line-height: 1.45; }
+      @include mobile { font-size: 9px; line-height: 1.45; }
     }
   }
 
@@ -238,10 +250,18 @@ body {
 
     #links {
       .link {
+        // On phones, size each link's line to the 9px text (same line
+        // height as the bio) so the gap under CONTACT matches the gap under
+        // the name; extra margin keeps the space between links unchanged.
+        @include mobile {
+          font-size: 9px;
+          line-height: 1.45;
+          & + .link { margin-top: 3px; }
+        }
         a {
           color: #eeeeee;
           font-size: 12px;
-          @include mobile { font-size: 10px; }
+          @include mobile { font-size: 9px; }
           text-decoration-line: none;
           margin: 0;
           padding: 0;

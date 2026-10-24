@@ -286,6 +286,7 @@ cv:
 
     - client: TAYLOR SWIFT
       title: TORTURED POETS DEPARTMENT, THE ERAS TOUR
+      title_short: THE ERAS TOUR
       year: 2024
       role: CONTENT PRODUCER
       studio: HUMAN PERSON
@@ -503,6 +504,7 @@ cv:
       title: THE LADY AND THE DALE
       year: 2020
       role: ANIMATION COORDINATOR
+      role_short: ANIMATION COORD
       studio: AWESOME AND MODEST
 
     - client: HBO MAX
@@ -553,9 +555,9 @@ cv:
             {% for project in page.cv %}
             <div class="project">
                 <p class="client">{{ project.client }}</p>
-                <p class="title">{{ project.title }}</p>
+                <p class="title{% if project.title_short %} has-short{% endif %}"><span class="full">{{ project.title }}</span>{% if project.title_short %}<span class="short">{{ project.title_short }}</span>{% endif %}</p>
                 <p class="year">{{ project.year }}</p>
-                <p class="role">{{ project.role }}</p>
+                <p class="role{% if project.role_short %} has-short{% endif %}"><span class="full">{{ project.role }}</span>{% if project.role_short %}<span class="short">{{ project.role_short }}</span>{% endif %}</p>
                 <p class="studio">{{ project.studio }}</p>
             </div>
             {% endfor %}
